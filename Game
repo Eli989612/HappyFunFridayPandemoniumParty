@@ -1,8 +1,12 @@
+import java.awt.AWTKeyStroke;
 import java.awt.Color;
 import java.awt.Graphics;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+
 
 public class Game extends JComponent{
 
@@ -11,7 +15,9 @@ public class Game extends JComponent{
 	private static final int width = 800;
 	private static final int height = 600;
 	
-	public static void main(String[] args) {
+	static int x = 50;
+	
+	public static void main(String[] args) {//main method
 		JFrame frame = new JFrame();
 		Game screen = new Game();
 		frame.setVisible(true);
@@ -19,17 +25,18 @@ public class Game extends JComponent{
 		frame.setSize(width, height);
 		frame.setResizable(true);
 		frame.add(screen);
+		Action down = new DownAction();
+		screen.getInputMap().put(KeyStroke.getKeyStroke('s'), down);
+		x+=200;
 		
-	}
-	
-	public Game() {
-
+		screen.repaint();
 	}
 	
 	public void paint(Graphics g) {//gui paint class
 		g.setColor(Color.GREEN);
 		g.fillRect(10, 10, 100, 100);
 		g.setColor(Color.RED);
-		g.fillRect(50,50,100,100);
+		g.fillRect(x,50,100,100);
 	}
+
 }
