@@ -1,12 +1,8 @@
 import java.awt.event.ActionEvent;
-
 import javax.swing.AbstractAction;
 
 public class DownAction extends AbstractAction {
-
 	public void actionPerformed(ActionEvent s) {
 	
-		
 	}
-
 }
