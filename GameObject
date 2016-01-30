@@ -1,0 +1,16 @@
+import java.awt.Color;
+import java.awt.Polygon;
+
+public abstract class GameObject {
+
+	private int ID;
+	
+	public GameObject(int ID) {
+		this.ID=ID;
+	}
+	
+	public abstract Color getColor();
+	
+	public abstract Polygon getTexture();
+	
+}
