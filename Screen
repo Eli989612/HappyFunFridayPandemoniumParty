@@ -1,0 +1,45 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.util.ArrayList;
+
+import javax.swing.JComponent;
+
+public class Screen extends JComponent{
+
+	private static final long serialVersionUID = 1L;
+	
+	int x = 10;
+	int y = 10;
+	double a = 0;
+	
+	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
+	
+	public void paint(Graphics g) {
+		objects.add(new Player(2));
+		g.setColor(Color.GREEN);
+		g.fillRect(x, y, 100, 100);
+		for(int i=0;i<objects.size();i++) {
+			g.setColor(objects.get(i).getColor());
+			g.fillPolygon(objects.get(i).getTexture());
+		}
+	}
+	
+	public void moveRight() {
+		x+=1;
+		if (y==400) {
+			a=-a+5;
+		}
+		if (y<=400) {
+		a+=1;
+		y+=(int)(a/5);}
+		
+	}
+	public void moveLeft() {
+		
+	}
+	
+	public void addObject(GameObject a) {
+		objects.add(a);
+	}
+
+}
