@@ -1,0 +1,26 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Polygon;
+
+public class Player extends GameObject{
+
+	public Player(int ID) {
+		super(ID);
+		
+	}
+	
+	public Color getColor() {
+		return Color.CYAN;
+	}
+
+	//int[][] Kinematics = {{x,y},{dx,dy},{ddx,ddy}};
+	
+	public Polygon getTexture() {
+		int[] x = {10,100,10};
+		int[] y = {10,100,100};
+		Polygon c = new Polygon(x, y, 3);
+		return c;
+	}
+
+
+}
