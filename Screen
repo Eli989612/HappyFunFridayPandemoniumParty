@@ -10,28 +10,65 @@ public class Screen extends JComponent{
 	
 	int x = 10;
 	int y = 10;
+	int x1 = 10;
+	int y1 = 10;
+	double a1 =0;
 	double a = 0;
+	int delay = 0;
+	int sign = 2;
+	int g = 5;
+	int vx = 5;
+	int f = 2;
 	
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	
 	public void paint(Graphics g) {
 		objects.add(new Player(2));
-		g.setColor(Color.GREEN);
-		g.fillRect(x, y, 100, 100);
+//		g.setColor(Color.GREEN);
+//		g.fillRect(x, y, 100, 100);
+		g.setColor(Color.PINK);
+		g.fillRect(x1, y1, 100, 100);
+//		g.setColor(Color.BLACK);
+//		g.fillRect(10,110,200,200);
 		for(int i=0;i<objects.size();i++) {
 			g.setColor(objects.get(i).getColor());
 			g.fillPolygon(objects.get(i).getTexture());
 		}
 	}
-	
+	public void reset() {
+		x = 10;
+		y = 10;
+		x1 = 10;
+		y1 = 10;
+		a1 =0;
+		a = 0;
+		delay = 0;
+		
+	}
 	public void moveRight() {
-		x+=1;
-		if (y==400) {
-			a=-a+5;
+		if (x1>=1200){
+			sign = -1;
 		}
-		if (y<=400) {
-		a+=1;
-		y+=(int)(a/5);}
+		if (x1<=10) {
+			sign = 1;
+		}
+		x1+=vx*sign;
+		if (delay>0) {
+			if (y1==400) {
+				a1=-a1+f;
+			}
+			if (y1<=400) {
+			a1+=1;
+			y1+=(int)(a1/g);}
+		}
+//		x+=1;
+//		if (y==400) {
+//			a=-a+5;
+//		}
+//		if (y<=400) {
+//		a+=1;
+//		y+=(int)(a/5);}
+		delay++;
 		
 	}
 	public void moveLeft() {
