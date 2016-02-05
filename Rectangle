@@ -1,0 +1,106 @@
+public class Rectangle {
+
+	double x,y,w,h,m;
+	//linear spacial dimensions
+	Vector topLeft,topRight,bottomLeft,bottomRight;
+	//linear kinematics
+	public Vector v = new Vector(0,0);
+	public Vector a = new Vector(0,0);
+	//angular kinematics
+	public double theta,omega,alpha = 0;
+	private double I;
+	
+	public Rectangle(double x,double y,double w,double h,Vector v,Vector a,double theta,double omega,double alpha,double m) {
+		this.x=x;
+		this.y=y;
+		this.w=w;
+		this.h=h;
+		this.v=v;
+		this.a=a;
+		this.theta=theta;
+		this.omega=omega;
+		this.alpha=alpha;
+		this.m=m;
+		topLeft = new Vector(x,y);
+		topRight = new Vector(x+w,y);
+		bottomRight = new Vector(x+w,y+h);
+		bottomLeft = new Vector(x,y+h);
+		I = (m*(w*w+h*h))/1200;
+	}
+	
+	public Vector getTopLeft() {
+		return topLeft;
+	}
+	
+	public Vector getTopRight() {
+		return topRight;
+	}
+	
+	public Vector getBottomRight() {
+		return bottomRight;
+	}
+	
+	public Vector getBottomLeft() {
+		return bottomLeft;
+	}
+	
+	public double getWidth() {
+		return w;
+	}
+	
+	public double getHeight() {
+		return h;
+	}
+	
+	public Vector getCenter() {
+		return topLeft.add(bottomRight.subtract(topLeft).scale(.5));
+	}
+	
+	public void translate(Vector v) {
+		topLeft = topLeft.add(v);
+		topRight = topRight.add(v);
+		bottomRight = bottomRight.add(v);
+		bottomLeft = bottomLeft.add(v);
+	}
+	
+	public void rotate(double angle) {
+		theta+=angle;
+		Vector c = this.getCenter();
+		topLeft = topLeft.rotateInXY(angle, c);
+		topRight = topRight.rotateInXY(angle, c);
+		bottomRight = bottomRight.rotateInXY(angle, c);
+		bottomLeft = bottomLeft.rotateInXY(angle, c);
+			
+	}
+	
+	public Vector getPos() {
+		return topLeft;
+	}
+	
+	public Vector getVel() {
+		return v;
+	}
+	
+	public Vector getAcc() {
+		return a;
+	}
+	
+	public double getTheta() {
+		return theta;
+	}
+	
+	public double getOmega() {
+		return omega;
+	}
+	
+	public double getAlpha() {
+		return alpha;
+	}
+	
+	public double getRotationalInertia() {
+		return I;
+	}
+	
+	
+	
+}
