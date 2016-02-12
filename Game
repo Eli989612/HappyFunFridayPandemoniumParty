@@ -6,7 +6,7 @@ public class Game {
 
 	private static final int width = 1600;
 	private static final int height = 900;
-	private static final double fps = 60;
+	private static final double fps = 240;
 			
 	private static boolean running = true;
 	private static final double T = 1/fps;
