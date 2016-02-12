@@ -28,29 +28,13 @@ public class Rectangle {
 		I = (m*(w*w+h*h))/1200;
 	}
 	
-	public Vector getTopLeft() {
-		return topLeft;
-	}
+	public Vector getTopLeft() {return topLeft;}
+	public Vector getTopRight() {return topRight;}
+	public Vector getBottomRight() {return bottomRight;}
+	public Vector getBottomLeft() {return bottomLeft;}
 	
-	public Vector getTopRight() {
-		return topRight;
-	}
-	
-	public Vector getBottomRight() {
-		return bottomRight;
-	}
-	
-	public Vector getBottomLeft() {
-		return bottomLeft;
-	}
-	
-	public double getWidth() {
-		return w;
-	}
-	
-	public double getHeight() {
-		return h;
-	}
+	public double getWidth() {return w;}
+	public double getHeight() {return h;}
 	
 	public Vector getCenter() {
 		return topLeft.add(bottomRight.subtract(topLeft).scale(.5));
@@ -70,37 +54,20 @@ public class Rectangle {
 		topRight = topRight.rotateInXY(angle, c);
 		bottomRight = bottomRight.rotateInXY(angle, c);
 		bottomLeft = bottomLeft.rotateInXY(angle, c);
-			
-	}
+			}
 	
-	public Vector getPos() {
-		return topLeft;
-	}
+	public Vector getPos() {return topLeft;}
+	public Vector getVel() {return v;}
+	public Vector getAcc() {return a;}
 	
-	public Vector getVel() {
-		return v;
-	}
+	public double getTheta() {return theta;}
 	
-	public Vector getAcc() {
-		return a;
-	}
+	public double getOmega() {return omega;}
+	public double getAlpha() {return alpha;}
+	public double getRotationalInertia() {return I;}
 	
-	public double getTheta() {
-		return theta;
-	}
-	
-	public double getOmega() {
-		return omega;
-	}
-	
-	public double getAlpha() {
-		return alpha;
-	}
-	
-	public double getRotationalInertia() {
-		return I;
-	}
-	
+	public void horizontalCollision() {v=v.scale(-1);}
+	public void verticalCollision() {v =v.scale(-1);}
 	
 	
 }
