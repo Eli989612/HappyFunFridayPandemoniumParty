@@ -1,0 +1,44 @@
+import javax.swing.JFrame;
+
+public class Game {
+
+	private static final long serialVersionUID = 1L;
+
+	private static final int width = 1600;
+	private static final int height = 900;
+	private static final double fps = 60;
+			
+	private static boolean running = true;
+	private static final double T = 1/fps;
+	
+	public static JFrame frame = new JFrame();
+	public static Screen screen = new Screen(T);
+	
+	public static void main(String[] args) throws InterruptedException {
+		initialize();
+		while(running) {
+			update();
+			render();
+			System.out.println(T);
+			Thread.sleep((long) (T*1000));
+		}
+	}
+	
+	public static void initialize() {
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(width, height);
+		frame.setResizable(true);
+		frame.add(screen);
+
+	}
+	
+	public static void update() {
+		screen.update();
+	}
+	
+	public static void render() {
+		frame.repaint();
+	}
+
+}

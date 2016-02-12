@@ -1,0 +1,41 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Polygon;
+
+import data.eng.Rectangle;
+import data.eng.Vector;
+
+public class Player extends GameObject{
+	
+	private static final int ID = 0;
+
+	Rectangle r;
+	Color c;
+	
+	public Player(Rectangle r, Color c) {
+		super(ID);
+		this.r=r;
+		this.c=c;
+	}
+	
+	public Color getColor() {
+		return c;
+	}
+	
+	public Polygon getTexture() {
+		int[] x = {(int)r.getTopLeft().getX(),(int)r.getTopRight().getX(),(int)r.getBottomRight().getX(),(int)r.getBottomLeft().getX()};
+		int[] y = {(int)r.getTopLeft().getY(),(int)r.getTopRight().getY(),(int)r.getBottomRight().getY(),(int)r.getBottomLeft().getY()};
+		return new Polygon(x,y,4);
+	}
+
+	public void updatePhysics(double T) {
+		//Verlet numerical integration
+		r.translate(r.getVel().scale(T).add(r.a.scale(0.5 *T*T)));
+		r.v = r.v.add(r.a.scale(T));
+		
+		r.rotate(r.omega*T + r.alpha*0.5*T*T);
+		r.omega += r.alpha*T;
+		
+	}
+
+}
