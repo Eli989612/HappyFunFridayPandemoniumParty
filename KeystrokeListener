@@ -1,0 +1,32 @@
+import java.awt.event.*;
+
+public class KeystrokeListener implements KeyListener {
+	
+	public Screen screen;
+	
+	public KeystrokeListener(Screen s){
+		super();
+		this.screen = s;
+	}
+	public void keyPressed(KeyEvent e) {
+		int x = e.getKeyCode();
+		if (x ==KeyEvent.VK_RIGHT) {
+			screen.moveRight();
+		}
+		if (x ==KeyEvent.VK_LEFT) {
+			screen.moveLeft();
+		}
+		if (x ==KeyEvent.VK_UP) {
+			screen.jump();
+		}
+		
+	}
+	public void keyReleased(KeyEvent e) {
+		
+	}
+
+	public void keyTyped(KeyEvent e) {
+		
+	}
+	
+}
