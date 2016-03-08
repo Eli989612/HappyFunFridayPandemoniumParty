@@ -1,0 +1,35 @@
+import javax.swing.JFrame;
+import javax.swing.JTextField;
+
+public class Constructor {
+	
+	private static final long serialVersionUID = 1L;
+
+	private static final int width = 1500;
+	private static final int height = 800;
+	private static boolean running = true;
+	
+	public static JFrame frame = new JFrame();
+	public static Screen screen = new Screen();
+	
+	public static void main(String[] args) throws InterruptedException {
+		initialize();
+		while(running) {
+			frame.repaint();
+			//screen.moveRight();
+			Thread.sleep(16);
+		}
+	}
+	
+	public static void initialize() {
+		JTextField x = new JTextField();
+		frame.add(x);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(width, height);
+		frame.setResizable(true);
+		frame.add(screen);
+		x.addKeyListener(new KeystrokeListener(screen));
+	}
+	public static void moveRight() {screen.moveRight();}
+}
