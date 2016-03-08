@@ -1,49 +1,88 @@
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.Random;
 
 import javax.swing.JComponent;
-
-import data.eng.Rectangle;
-import data.eng.Vector;
 
 public class Screen extends JComponent{
 
 	private static final long serialVersionUID = 1L;
 	
-	double T;
-	int q = 0;
-	Random rand = new Random();
-	
-	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
-	
-	public Screen(double T) {
-		objects.add(new Player(new Rectangle(100,300,30,50,new Vector(50,-125),new Vector(0,40),0,-25,4,5), Color.PINK));
-		objects.add(new Player(new Rectangle(200,250,120,60,new Vector(65,-85),new Vector(0,20),0,-10,2,5), Color.GREEN));
-		objects.add(new Player(new Rectangle(300,450,200,10,new Vector(285,-145),new Vector(-50,30),0,8,-1.5,5), Color.YELLOW));
-		this.T=T;
-	}
+	int x = 10;
+	int y = 10;
+	int x1 = 10;
+	int y1 = 550;
+	double a1 =0;
+	double a = 0;
+	int delay = 0;
+	int sign = 2;
+	int gr = 1;
+	int vx = 0;
+	int vy = 0;
+	int f = 2;
+	double xmoment = 0;
+	boolean j = true;
 	
 	public void paint(Graphics g) {
-		q++;
-		if(q%((1/T))==0) {
-			objects.add(new Player(new Rectangle(rand.nextInt(1600),rand.nextInt(900),rand.nextInt(300),rand.nextInt(300),new Vector(rand.nextInt(300)-rand.nextInt(300),rand.nextInt(300)-rand.nextInt(300)),new Vector(rand.nextInt(100)-rand.nextInt(100),rand.nextInt(100)-rand.nextInt(100)),0,rand.nextInt(40)-rand.nextInt(40),rand.nextInt(5)-rand.nextInt(5),1), Color.getHSBColor(rand.nextFloat(),rand.nextFloat(),rand.nextFloat())));
+		g.setColor(Color.BLACK);//player
+		g.fillRect(x1, y1, 50, 50);
+		
+		g.setColor(Color.GRAY);
+		g.fillRect(0, 600, 1400, 100);//floor
+		g.fillRect(1000,510,400,90);//ledge
+		
+		if (vy<0) {
+			y1+=vy;
+			vy+=gr;
 		}
-		for(int i=0;i<objects.size();i++) {
-			g.setColor(objects.get(i).getColor());
-			g.fillPolygon(objects.get(i).getTexture());
+		if (y1<550&&vy<0){
+			j=true;
+		}
+		if ((y1<=550&&x1<950)||(y1<=450&&x1>=950)) {//ledge mechanics
+			y1+=vy;
+			vy+=gr;
+		}
+//		if (x1==950&&y1>400) {
+//			xmoment = 0;
+//		}
+		x1+=(int)xmoment;
+		if (xmoment!=0) {
+			if (xmoment>0){xmoment-=0.5;}
+			if (xmoment<0){xmoment+=0.5;}
+		}
+		
+	}
+	public void reset() {
+		x = 10;
+		y = 10;
+		x1 = 10;
+		y1 = 10;
+		a1 =0;
+		a = 0;
+		delay = 0;
+		
+	}
+	public void moveRight() {
+		if (x1<900||(x1<1400&&y1<500)) {
+			x1+=10;
+			xmoment = 10;
 		}
 	}
-	
-	public void addObject(GameObject a) {
-		objects.add(a);
-	}
-	
-	public void update() {
-		for(int i=0;i<objects.size();i++) {
-			objects.get(i).updatePhysics(T);
+	public void jump() {
+		if (j) {
+			vy = -20;
+			j = false;
 		}
+		
 	}
-
+	public void stopJumping() {
+		
+	}
+	public void moveLeft() {
+		x1-=10;
+		xmoment = -10;
+	}
+	public void stopMoving() {
+		
+	}
 }
+
