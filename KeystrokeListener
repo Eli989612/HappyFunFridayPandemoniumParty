@@ -22,6 +22,14 @@ public class KeystrokeListener implements KeyListener {
 		
 	}
 	public void keyReleased(KeyEvent e) {
+		int x = e.getKeyCode();
+		if (x ==KeyEvent.VK_RIGHT) {
+			screen.stopMoveRight();
+		}
+		if (x ==KeyEvent.VK_LEFT) {
+			screen.stopMoveLeft();
+		}
+	
 		
 	}
 
