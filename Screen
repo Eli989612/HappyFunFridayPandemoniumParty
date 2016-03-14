@@ -16,11 +16,12 @@ public class Screen extends JComponent{
 	int delay = 0;
 	int sign = 2;
 	int gr = 1;
-	int vx = 0;
+	int vx = 10;
 	int vy = 0;
 	int f = 2;
-	double xmoment = 0;
 	boolean j = true;
+	boolean moveRight=false;
+	boolean moveLeft=false;
 	
 	public void paint(Graphics g) {
 		g.setColor(Color.BLACK);//player
@@ -30,26 +31,19 @@ public class Screen extends JComponent{
 		g.fillRect(0, 600, 1400, 100);//floor
 		g.fillRect(1000,510,400,90);//ledge
 		
-		if (vy<0) {
+		if (vy<0) {//jump
 			y1+=vy;
 			vy+=gr;
 		}
-		if (y1<550&&vy<0){
+		if (y1<550&&vy<0){//jump
 			j=true;
 		}
 		if ((y1<=550&&x1<950)||(y1<=450&&x1>=950)) {//ledge mechanics
 			y1+=vy;
 			vy+=gr;
 		}
-//		if (x1==950&&y1>400) {
-//			xmoment = 0;
-//		}
-		x1+=(int)xmoment;
-		if (xmoment!=0) {
-			if (xmoment>0){xmoment-=0.5;}
-			if (xmoment<0){xmoment+=0.5;}
-		}
-		
+		if (moveRight) x1+=vx;
+		if (moveLeft) x1-=vx;
 	}
 	public void reset() {
 		x = 10;
@@ -61,12 +55,8 @@ public class Screen extends JComponent{
 		delay = 0;
 		
 	}
-	public void moveRight() {
-		if (x1<900||(x1<1400&&y1<500)) {
-			x1+=10;
-			xmoment = 10;
-		}
-	}
+	public void moveRight() {moveRight = true;}
+	public void stopMoveRight() {moveRight=false;}
 	public void jump() {
 		if (j) {
 			vy = -20;
@@ -77,12 +67,7 @@ public class Screen extends JComponent{
 	public void stopJumping() {
 		
 	}
-	public void moveLeft() {
-		x1-=10;
-		xmoment = -10;
-	}
-	public void stopMoving() {
-		
-	}
+	public void moveLeft() {moveLeft = true;}
+	public void stopMoveLeft() {moveLeft=false;}
 }
 
