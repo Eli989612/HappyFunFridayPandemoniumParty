@@ -33,3 +33,4 @@ public class Constructor {
 	}
 	public static void moveRight() {screen.moveRight();}
 }
+
