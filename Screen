@@ -7,10 +7,10 @@ public class Screen extends JComponent{
 
 	private static final long serialVersionUID = 1L;
 	
-	int x = 10;
-	int y = 10;
 	int x1 = 10;
 	int y1 = 550;
+	int xcpu1=0;
+	int ycpu1=0;
 	double a1 =0;
 	double a = 0;
 	int delay = 0;
@@ -18,18 +18,32 @@ public class Screen extends JComponent{
 	int gr = 1;
 	int vx = 10;
 	int vy = 0;
+	double cpucoeff=3;
 	int f = 2;
 	boolean j = true;
 	boolean moveRight=false;
 	boolean moveLeft=false;
+	boolean lost = false;
 	
 	public void paint(Graphics g) {
+		
+		if (x1-5<=xcpu1&&xcpu1<=x1+55&&y1-5<=ycpu1&&ycpu1<=y1+55) lost = true;
+		
 		g.setColor(Color.BLACK);//player
 		g.fillRect(x1, y1, 50, 50);
+		
+		g.setColor(Color.RED);//cpu
+		g.fillRect(xcpu1,ycpu1,50,50);
 		
 		g.setColor(Color.GRAY);
 		g.fillRect(0, 600, 1400, 100);//floor
 		g.fillRect(1000,510,400,90);//ledge
+		
+		if (x1>xcpu1) xcpu1+=(int)(vx/cpucoeff);
+		if (x1<xcpu1) xcpu1-=(int)(vx/cpucoeff);
+		if (y1>ycpu1) ycpu1+=(int)(vx/cpucoeff);
+		if (y1<ycpu1) ycpu1-=(int)(vx/cpucoeff);
+		
 		
 		if (vy<0) {//jump
 			y1+=vy;
@@ -45,15 +59,19 @@ public class Screen extends JComponent{
 		if (moveRight) x1+=vx;
 		if (moveLeft) x1-=vx;
 	}
+	
+	public boolean checkForLoss() {return lost;}
+	
 	public void reset() {
-		x = 10;
-		y = 10;
 		x1 = 10;
 		y1 = 10;
 		a1 =0;
 		a = 0;
 		delay = 0;
 		
+	}
+	public void increaseSpeed() {
+		cpucoeff-=0.002;
 	}
 	public void moveRight() {moveRight = true;}
 	public void stopMoveRight() {moveRight=false;}
