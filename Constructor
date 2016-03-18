@@ -1,4 +1,6 @@
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class Constructor {
@@ -11,14 +13,28 @@ public class Constructor {
 	
 	public static JFrame frame = new JFrame();
 	public static Screen screen = new Screen();
+	public static Stopwatch timer = new Stopwatch();
 	
 	public static void main(String[] args) throws InterruptedException {
 		initialize();
 		while(running) {
 			frame.repaint();
-			//screen.moveRight();
+			screen.increaseSpeed();
+			if (screen.checkForLoss()) running = false;
 			Thread.sleep(16);
 		}
+		exit();
+	}
+	
+	public static void exit() {
+		timer.stop();
+		JLabel l1 = new JLabel("GAME OVER");
+		l1.setBounds(10,10,100,20);
+		JLabel l2 = new JLabel("You Lasted "+ timer.getElapsedTime()/1000000000 +"Seconds ");
+		l2.setBounds(10,20,20,10);
+		frame.add(l1);
+		frame.add(l2);
+		frame.setVisible(true);
 	}
 	
 	public static void initialize() {
@@ -30,7 +46,7 @@ public class Constructor {
 		frame.setResizable(true);
 		frame.add(screen);
 		x.addKeyListener(new KeystrokeListener(screen));
+		timer.start();
 	}
 	public static void moveRight() {screen.moveRight();}
 }
-
