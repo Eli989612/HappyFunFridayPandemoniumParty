@@ -1,21 +1,43 @@
+package v2;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class Constructor {
 	
 	private static final long serialVersionUID = 1L;
-
-	private static final int width = 1500;
+	
+	private static final int width = 1400;
 	private static final int height = 800;
 	private static boolean running = true;
+	public static boolean ready = false;
+
 	
 	public static JFrame frame = new JFrame();
 	public static Screen screen = new Screen();
 	public static Stopwatch timer = new Stopwatch();
 	
 	public static void main(String[] args) throws InterruptedException {
+		JFrame i1 = new JFrame();
+		i1.setVisible(true);
+		i1.setBounds(0,0,500,200);
+		JPanel p1 = new JPanel(); 
+		JButton d1 = new JButton("easy");
+		JButton d2 = new JButton("medium");
+		JButton d3 = new JButton("hard");
+		p1.add(d1);
+		p1.add(d2);
+		p1.add(d3);
+		d1.setBounds(0,10,20,10);
+		d2.setBounds(0,20,20,10);
+		d3.setBounds(0,30,20,10);
+		
+		if (ready) {
 		initialize();
 		while(running) {
 			frame.repaint();
@@ -24,6 +46,7 @@ public class Constructor {
 			Thread.sleep(16);
 		}
 		exit();
+		}
 	}
 	
 	public static void exit() {
@@ -32,9 +55,22 @@ public class Constructor {
 		l1.setBounds(10,10,100,20);
 		JLabel l2 = new JLabel("You Lasted "+ timer.getElapsedTime()/1000000000 +"Seconds ");
 		l2.setBounds(10,20,20,10);
+		JButton reset = new JButton("reset");
+		frame.add(reset);
+		reset.addActionListener(
+			new ActionListener(){ 
+				public void actionPerformed(ActionEvent e)
+				{reset();}
+				});
+		reset.setBounds(40,40,100,40);
 		frame.add(l1);
 		frame.add(l2);
 		frame.setVisible(true);
+		
+	}
+	
+	public static void getDifficulty() {
+		
 	}
 	
 	public static void initialize() {
@@ -47,6 +83,10 @@ public class Constructor {
 		frame.add(screen);
 		x.addKeyListener(new KeystrokeListener(screen));
 		timer.start();
+		
+		
 	}
-	public static void moveRight() {screen.moveRight();}
+	public static void reset() {
+		initialize();
+	}
 }
