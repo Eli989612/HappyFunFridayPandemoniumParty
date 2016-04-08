@@ -23,6 +23,17 @@ public class Constructor {
 	public static Stopwatch timer = new Stopwatch();
 	
 	public static void main(String[] args) throws InterruptedException {
+		prepare();
+		while(running) {
+			frame.repaint();
+			screen.increaseSpeed();
+			if (screen.checkForLoss()) running = false;
+			Thread.sleep(16);
+		}
+		exit();
+	}
+	
+	public static void prepare() {
 		JFrame i1 = new JFrame();
 		i1.setVisible(true);
 		i1.setBounds(0,0,500,200);
@@ -57,13 +68,7 @@ public class Constructor {
 					});
 		while(!ready) {}
 		initialize();
-		while(running) {
-			frame.repaint();
-			screen.increaseSpeed();
-			if (screen.checkForLoss()) running = false;
-			Thread.sleep(16);
-		}
-		exit();
+		
 	}
 	
 	public static void exit() {
@@ -104,7 +109,7 @@ public class Constructor {
 		
 	}
 	public static void reset() {
-		initialize();
+		prepare();
 	}
 	public static void enterGame(){ready =true;}
 }
