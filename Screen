@@ -1,3 +1,4 @@
+package v2;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -18,12 +19,13 @@ public class Screen extends JComponent{
 	int gr = 1;
 	int vx = 10;
 	int vy = 0;
-	double cpucoeff=3;
+	static double cpucoeff=3;
 	int f = 2;
 	boolean j = true;
 	boolean moveRight=false;
 	boolean moveLeft=false;
 	boolean lost = false;
+	
 	
 	public void paint(Graphics g) {
 		
@@ -37,13 +39,13 @@ public class Screen extends JComponent{
 		
 		g.setColor(Color.GRAY);
 		g.fillRect(0, 600, 1400, 100);//floor
-		g.fillRect(1000,510,400,90);//ledge
 		
 		if (x1>xcpu1) xcpu1+=(int)(vx/cpucoeff);
 		if (x1<xcpu1) xcpu1-=(int)(vx/cpucoeff);
 		if (y1>ycpu1) ycpu1+=(int)(vx/cpucoeff);
 		if (y1<ycpu1) ycpu1-=(int)(vx/cpucoeff);
 		
+		if (y1<0) y1=0;
 		
 		if (vy<0) {//jump
 			y1+=vy;
@@ -52,12 +54,13 @@ public class Screen extends JComponent{
 		if (y1<550&&vy<0){//jump
 			j=true;
 		}
-		if ((y1<=550&&x1<950)||(y1<=450&&x1>=950)) {//ledge mechanics
+		if (y1<=550) {//ledge mechanics
 			y1+=vy;
 			vy+=gr;
 		}
-		if (moveRight) x1+=vx;
-		if (moveLeft) x1-=vx;
+		
+		if (moveRight&&x1<1350) x1+=vx;
+		if (moveLeft&&x1>0) x1-=vx;
 	}
 	
 	public boolean checkForLoss() {return lost;}
@@ -87,5 +90,7 @@ public class Screen extends JComponent{
 	}
 	public void moveLeft() {moveLeft = true;}
 	public void stopMoveLeft() {moveLeft=false;}
+	
+	public static void setDifficulty(int x) {cpucoeff=x;};
 }
 
