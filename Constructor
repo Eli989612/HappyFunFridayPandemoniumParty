@@ -27,6 +27,7 @@ public class Constructor {
 		i1.setVisible(true);
 		i1.setBounds(0,0,500,200);
 		JPanel p1 = new JPanel(); 
+		i1.add(p1);
 		JButton d1 = new JButton("easy");
 		JButton d2 = new JButton("medium");
 		JButton d3 = new JButton("hard");
@@ -36,8 +37,25 @@ public class Constructor {
 		d1.setBounds(0,10,20,10);
 		d2.setBounds(0,20,20,10);
 		d3.setBounds(0,30,20,10);
-		
-		if (ready) {
+		d1.addActionListener(
+			new ActionListener(){ 
+				public void actionPerformed(ActionEvent e){
+					screen.setDifficulty(5);
+					enterGame();}
+				});
+		d2.addActionListener(
+				new ActionListener(){ 
+					public void actionPerformed(ActionEvent e){
+						screen.setDifficulty(3);
+						enterGame();}
+					});
+		d3.addActionListener(
+				new ActionListener(){ 
+					public void actionPerformed(ActionEvent e){
+						screen.setDifficulty(1);
+						enterGame();}
+					});
+		while(!ready) {}
 		initialize();
 		while(running) {
 			frame.repaint();
@@ -46,7 +64,6 @@ public class Constructor {
 			Thread.sleep(16);
 		}
 		exit();
-		}
 	}
 	
 	public static void exit() {
@@ -89,4 +106,5 @@ public class Constructor {
 	public static void reset() {
 		initialize();
 	}
+	public static void enterGame(){ready =true;}
 }
