@@ -1,6 +1,7 @@
-package v2;
+package v3;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,6 +26,9 @@ public class Constructor {
 	public static void main(String[] args) throws InterruptedException {
 		prepare();
 		while(running) {
+			if (timer.getElapsedTime()%5==0) {
+				screen.addCpu();
+			}
 			frame.repaint();
 			screen.increaseSpeed();
 			if (screen.checkForLoss()) running = false;
@@ -39,12 +43,14 @@ public class Constructor {
 		i1.setBounds(0,0,500,200);
 		JPanel p1 = new JPanel(); 
 		i1.add(p1);
-		JButton d1 = new JButton("easy");
-		JButton d2 = new JButton("medium");
-		JButton d3 = new JButton("hard");
+		JButton d1 = new JButton("Easy");
+		JButton d2 = new JButton("Medium");
+		JButton d3 = new JButton("Hard");
+		JButton d4 = new JButton("Ludikris");
 		p1.add(d1);
 		p1.add(d2);
 		p1.add(d3);
+		p1.add(d4);
 		d1.setBounds(0,10,20,10);
 		d2.setBounds(0,20,20,10);
 		d3.setBounds(0,30,20,10);
@@ -63,12 +69,17 @@ public class Constructor {
 		d3.addActionListener(
 				new ActionListener(){ 
 					public void actionPerformed(ActionEvent e){
-						screen.setDifficulty(1);
+						screen.setDifficulty(2);
 						enterGame();}
 					});
+		d4.addActionListener(
+						new ActionListener(){ 
+							public void actionPerformed(ActionEvent e){
+								screen.setDifficulty(1);
+								enterGame();}
+							});
 		while(!ready) {}
 		initialize();
-		
 	}
 	
 	public static void exit() {
@@ -77,7 +88,7 @@ public class Constructor {
 		l1.setBounds(10,10,100,20);
 		JLabel l2 = new JLabel("You Lasted "+ timer.getElapsedTime()/1000000000 +"Seconds ");
 		l2.setBounds(10,20,20,10);
-		JButton reset = new JButton("reset");
+		JButton reset = new JButton("Exit");
 		frame.add(reset);
 		reset.addActionListener(
 			new ActionListener(){ 
@@ -105,10 +116,9 @@ public class Constructor {
 		frame.add(screen);
 		x.addKeyListener(new KeystrokeListener(screen));
 		timer.start();
-		
-		
 	}
 	public static void reset() {
+		frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 		prepare();
 	}
 	public static void enterGame(){ready =true;}
