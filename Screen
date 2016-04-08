@@ -1,7 +1,7 @@
-package v2;
+package v3;
 import java.awt.Color;
 import java.awt.Graphics;
-
+import java.util.ArrayList;
 import javax.swing.JComponent;
 
 public class Screen extends JComponent{
@@ -25,25 +25,30 @@ public class Screen extends JComponent{
 	boolean moveRight=false;
 	boolean moveLeft=false;
 	boolean lost = false;
+	public static ArrayList<Integer> cpuX;
+	public static ArrayList<Integer> cpuY;
 	
 	
 	public void paint(Graphics g) {
 		
-		if (x1-5<=xcpu1&&xcpu1<=x1+55&&y1-5<=ycpu1&&ycpu1<=y1+55) lost = true;
+		if (x1-5<=xcpu1&&xcpu1<=x1+55&&y1-5<=ycpu1&&ycpu1<=y1+55) lost = true;//loosing mechanics
 		
 		g.setColor(Color.BLACK);//player
 		g.fillRect(x1, y1, 50, 50);
 		
-		g.setColor(Color.RED);//cpu
-		g.fillRect(xcpu1,ycpu1,50,50);
-		
 		g.setColor(Color.GRAY);
 		g.fillRect(0, 600, 1400, 100);//floor
 		
-		if (x1>xcpu1) xcpu1+=(int)(vx/cpucoeff);
-		if (x1<xcpu1) xcpu1-=(int)(vx/cpucoeff);
-		if (y1>ycpu1) ycpu1+=(int)(vx/cpucoeff);
-		if (y1<ycpu1) ycpu1-=(int)(vx/cpucoeff);
+		
+		g.setColor(Color.RED);//cpu
+		for (int i = 0; i< cpuX.size();i++) {
+			g.fillRect(cpuX.get(i),cpuY.get(i),50,50);
+			if (x1>cpuX.get(i)) cpuX.set(i,cpuX.get(i)+(int)(vx/cpucoeff));
+			if (x1<cpuX.get(i)) cpuX.set(i,cpuX.get(i)-(int)(vx/cpucoeff));
+			if (y1>cpuY.get(i)) cpuY.set(i,cpuX.get(i)+(int)(vx/cpucoeff));
+			if (y1<cpuY.get(i)) cpuY.set(i,cpuX.get(i)-(int)(vx/cpucoeff));
+		}
+		
 		
 		if (y1<0) y1=0;
 		
@@ -91,6 +96,13 @@ public class Screen extends JComponent{
 	public void moveLeft() {moveLeft = true;}
 	public void stopMoveLeft() {moveLeft=false;}
 	
-	public static void setDifficulty(int x) {cpucoeff=x;};
+	
+	public static void setDifficulty(int x) {cpucoeff=x;
+	}
+
+	public static void addCpu() {
+		cpuX.add(0);
+		cpuY.add(0);
+	}
 }
 
